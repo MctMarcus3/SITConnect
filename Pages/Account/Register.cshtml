@@ -1,0 +1,72 @@
+﻿@page
+@model SITConnect.Pages.Account.RegisterModel
+@{
+}
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <h1 class="mb-3">Register</h1>
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All"  class="text-danger"></div>
+                <div class="form-group row">
+                    <label class="form-label" asp-for="model.FirstName"></label>
+                    <input type="text" asp-for="model.FirstName" class="form-control" />
+                    <span asp-validation-for="model.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="form-label" asp-for="model.LastName"></label>
+                    <input type="text" asp-for="model.LastName" class="form-control" />
+                    <span asp-validation-for="model.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="form-label" asp-for="model.Password"></label>
+                    <input type="password" asp-for="model.Password" class="form-control" />
+                    <span asp-validation-for="model.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="form-label" asp-for="model.ConfirmPassword"></label>
+                    <input type="password" asp-for="model.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="model.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="form-label" asp-for="model.Email"></label>
+                    <input type="text" asp-for="model.Email" class="form-control" />
+                    <span asp-validation-for="model.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="form-label" asp-for="model.DateofBirth"></label>
+                    <input type="date" asp-for="model.DateofBirth" class="form-control" />
+                    <span asp-validation-for="model.DateofBirth" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="form-label" asp-for="model.CreditCard"></label>
+                    <input type="password" asp-for="model.CreditCard" class="form-control" />
+                    <span asp-validation-for="model.CreditCard" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label class="form-label" asp-for="model.Photo"></label>
+                    <div class="custom-file">
+                        <input asp-for="model.Photo" class="form-control custom-file-input" />
+                        <label class="form-control custom-file-label">Choose File</label>
+                    </div>
+                    <span asp-validation-for="model.Photo" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                @section Scripts{
+                  <script>
+                      $(document).ready(function (){
+                          $('.custom-file-input').on("change",function () {
+                              let fileName = $(this).val().split("\\").pop();
+                              console.log(fileName);
+                              $(this).next(".custom-file-label").html(fileName);
+                          });
+                      });
+                  </script>  
+                }
+            </form>
+        </div>
+    </div>
+</div>

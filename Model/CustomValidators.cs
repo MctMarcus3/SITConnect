@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using SkiaSharp;
 
 namespace SITConnect.Model
 {
@@ -53,20 +54,32 @@ namespace SITConnect.Model
                 return $"Maximum allowed file size is { _maxFileSize} bytes.";
             }
         }
-
         public class ValidateImage : ValidationAttribute
         {
-            private readonly int _maxFileSize;
+            private readonly string[] _validImageMimes;
 
+            public ValidateImage(string[] validImageMimes)
+            {
+                _validImageMimes = validImageMimes;
+            }
             protected override ValidationResult IsValid(object value, ValidationContext validationContext)
             {
                 var file = (IFormFile)value;
-                if (file.Headers){
-                    return new ValidationResult("");
-                    
-                }
+                if (file == null)
+                   return new ValidationResult(GetErrorMessage());
+                if (!_validImageMimes.Contains(file.ContentType.ToString())) 
+                   return new ValidationResult(GetErrorMessage());
+                if(SKCodec.Create(file.OpenReadStream(), out var result) == null || result != SKCodecResult.Success)
+                   return new ValidationResult(GetErrorMessage());
                 return ValidationResult.Success;
             }
+
+
+            public string GetErrorMessage()
+            {
+                return $"Image invalid or must be of type {String.Join(",", _validImageMimes.Select(filemime => String.Join(",", MimeTypes.GetMimeTypeExtensions(filemime))))}.";
+            }
         }
+        
     }
 }

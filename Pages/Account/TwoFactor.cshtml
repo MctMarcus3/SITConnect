@@ -1,0 +1,25 @@
+﻿@page
+@model SITConnect.Pages.Account.TwoFactorModel
+@{
+}
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <h1 class="mb-3">Welcome to SITConnect!</h1>
+            <h2 class="mb-3">Login</h2>
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="TFAModel.SecurityCode"></label>
+                    <input type="text" asp-for="TFAModel.SecurityCode" class="form-control" />
+                    <span asp-validation-for="TFAModel.SecurityCode" class="text-danger"></span>
+                </div>                
+                <div class="mb-3">
+                    <label class="form-label" asp-for="TFAModel.RememberMe"></label>
+                    <input type="hidden" asp-for="TFAModel.RememberMe" class="form-control" />
+                    <span asp-validation-for="TFAModel.RememberMe" class="text-danger"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

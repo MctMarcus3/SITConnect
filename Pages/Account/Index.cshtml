@@ -1,0 +1,45 @@
+﻿@page
+@model SITConnect.Pages.Account.IndexModel
+@{
+}
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <h1 class="mb-3">Welcome to SITConnect!</h1>
+            <h2 class="mb-3">Login</h2>
+            <form method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="LoginViewModel.Email"></label>
+                    <input type="text" asp-for="LoginViewModel.Email" class="form-control" />
+                    <span asp-validation-for="LoginViewModel.Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="LoginViewModel.Password"></label>
+                    <input type="password" asp-for="LoginViewModel.Password" class="form-control" />
+                    <span asp-validation-for="LoginViewModel.Password" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="LoginViewModel.RememberMe"></label>
+                    <input type="checkbox" asp-for="LoginViewModel.RememberMe" class="form-check-input" />
+                </div>
+                <div class="mb-3">
+                    <div class="g-recaptcha" data-sitekey="6LeS91ceAAAAAE3kjVqbup06sXFQRKR6q7_IN7Eq"></div>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <div class="mb-3">
+                    <a class="btn btn-success" asp-page="/Account/Register">
+                        Sign Up
+                    </a>
+                </div>
+
+                @section Scripts{
+                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                }
+            </form>
+        </div>
+    </div>
+</div>

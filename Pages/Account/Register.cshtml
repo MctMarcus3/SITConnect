@@ -4,67 +4,148 @@
 }
 <div class="container mt-5">
     <div class="row justify-content-center align-items-center">
-
         <div class="col-sm-12 col-md-12 col-lg-4">
             <h1 class="mb-3">Register</h1>
             <form method="post" enctype="multipart/form-data">
-                <div asp-validation-summary="All"  class="text-danger"></div>
-                <div class="form-group row">
-                    <label class="form-label" asp-for="model.FirstName"></label>
-                    <input type="text" asp-for="model.FirstName" class="form-control" />
-                    <span asp-validation-for="model.FirstName" class="text-danger"></span>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="mb-3">
+                    <img id="profilepic" class="rounded-circle img-fluid mx-auto img-responsive h-25 ratio-1x1" src="#" alt="Your Profile Picture" />
                 </div>
-                <div class="form-group row">
-                    <label class="form-label" asp-for="model.LastName"></label>
-                    <input type="text" asp-for="model.LastName" class="form-control" />
-                    <span asp-validation-for="model.LastName" class="text-danger"></span>
+                <div class="input-group mb-3">
+                    <input asp-for="RegisterViewModel.Photo" class="form-control custom-file-input" accept="@String.Join(",", SITConnect.Model.Register.ValidImageMimes);">
                 </div>
-                <div class="form-group row">
-                    <label class="form-label" asp-for="model.Password"></label>
-                    <input type="password" asp-for="model.Password" class="form-control" />
-                    <span asp-validation-for="model.Password" class="text-danger"></span>
+                <span asp-validation-for="RegisterViewModel.Photo" class="text-danger"></span>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RegisterViewModel.Email"></label>
+                    <input type="text" asp-for="RegisterViewModel.Email" class="form-control" />
+                    <span asp-validation-for="RegisterViewModel.Email" class="text-danger"></span>
                 </div>
-                <div class="form-group row">
-                    <label class="form-label" asp-for="model.ConfirmPassword"></label>
-                    <input type="password" asp-for="model.ConfirmPassword" class="form-control" />
-                    <span asp-validation-for="model.ConfirmPassword" class="text-danger"></span>
-                </div>
-                <div class="form-group row">
-                    <label class="form-label" asp-for="model.Email"></label>
-                    <input type="text" asp-for="model.Email" class="form-control" />
-                    <span asp-validation-for="model.Email" class="text-danger"></span>
-                </div>
-                <div class="form-group row">
-                    <label class="form-label" asp-for="model.DateofBirth"></label>
-                    <input type="date" asp-for="model.DateofBirth" class="form-control" />
-                    <span asp-validation-for="model.DateofBirth" class="text-danger"></span>
-                </div>
-                <div class="form-group row">
-                    <label class="form-label" asp-for="model.CreditCard"></label>
-                    <input type="password" asp-for="model.CreditCard" class="form-control" />
-                    <span asp-validation-for="model.CreditCard" class="text-danger"></span>
-                </div>
-                <div class="form-group row">
-                    <label class="form-label" asp-for="model.Photo"></label>
-                    <div class="custom-file">
-                        <input asp-for="model.Photo" class="form-control custom-file-input" />
-                        <label class="form-control custom-file-label">Choose File</label>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RegisterViewModel.Password"></label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" asp-for="RegisterViewModel.Password" placeholder="Password">
+                            <span class="input-group-text">
+                                <span class="material-icons togglePassword" style="cursor: pointer">
+                                    visibility_off
+                                </span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="RegisterViewModel.Password" class="text-danger"></span>
                     </div>
-                    <span asp-validation-for="model.Photo" class="text-danger"></span>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RegisterViewModel.ConfirmPassword"></label>
+                    <div class="input-group">
+                        <input type="password" asp-for="RegisterViewModel.ConfirmPassword" placeholder="Confirm Password" class="form-control" />
+                        <span class="input-group-text">
+                            <span class="material-icons togglePassword" style="cursor: pointer">
+                                visibility_off
+                            </span>
+                        </span>
+                    </div>
+                    <span asp-validation-for="RegisterViewModel.ConfirmPassword" class="text-danger"></span>
                 </div>
-                <div class="form-group row">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RegisterViewModel.FirstName"></label>
+                    <input type="text" asp-for="RegisterViewModel.FirstName" class="form-control" />
+                    <span asp-validation-for="RegisterViewModel.FirstName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RegisterViewModel.LastName"></label>
+                    <input type="text" asp-for="RegisterViewModel.LastName" class="form-control" />
+                    <span asp-validation-for="RegisterViewModel.LastName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RegisterViewModel.DateofBirth"></label>
+                    <input type="date" asp-for="RegisterViewModel.DateofBirth" class="form-control" />
+                    <span asp-validation-for="RegisterViewModel.DateofBirth" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RegisterViewModel.CreditCard"></label>
+                    <input type="text" asp-for="RegisterViewModel.CreditCard" class="form-control" />
+                    <span asp-validation-for="RegisterViewModel.CreditCard" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <div class="g-recaptcha" data-sitekey="6LeS91ceAAAAAE3kjVqbup06sXFQRKR6q7_IN7Eq"></div>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" id="submit" class="btn btn-primary">Submit</button>
                 </div>
                 @section Scripts{
-                  <script>
-                      $(document).ready(function (){
-                          $('.custom-file-input').on("change",function () {
-                              let fileName = $(this).val().split("\\").pop();
-                              console.log(fileName);
-                              $(this).next(".custom-file-label").html(fileName);
-                          });
-                      });
-                  </script>  
+                    <script>
+                        @*$(function () {
+                            $('#submit').on('click', function (evt) {
+                                evt.preventDefault();
+                                var formData = new FormData();
+                                $.ajax({
+                                    type: "POST",
+                                    url: window.location.pathname,
+                                    data: formData,
+                                    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                                    success: function () {
+                                        window.location.href = ("@RedirectToPage("/Account/Index")")
+                                    },
+                                    failure: function () {
+                                        return
+                                    }
+                                }
+                                )
+
+                            });
+                        });*@
+                        $(document).ready(function () {
+                            $('#profilepic').addClass('d-none');
+                            $('.custom-file-input').on("change", function () {
+                                // Change input file name
+                                let fileName = $(this).val().split("\\").pop();
+                                $(this).next(".custom-file-label").html(fileName);
+
+
+                                // Load image on image onto img tag
+                                let file = this.files[0];
+                                if (file) {
+                                    console.log(file);
+                                    const reader = new FileReader();
+                                    reader.readAsDataURL(file);
+                                    reader.onload = e => {
+                                        $("#profilepic").removeClass('d-none').addClass('d-block');
+                                        $("#profilepic").attr("src", e.target.result);
+                                        console.log(e.target.result);
+                                    };
+                                };
+                            });
+                            let checked = false
+                            // Show Password temp
+                            $('.togglePassword').on("click", function () {
+                                if (checked === false) {
+                                    $('#RegisterViewModel_Password').attr("type", "text");
+                                    $('#RegisterViewModel_ConfirmPassword').attr("type", "text");
+                                    $('.togglePassword').text("visibility")
+                                    checked = true
+                                    setTimeout(() => {
+                                        $('#RegisterViewModel_Password').attr("type", "password");
+                                        $('#RegisterViewModel_ConfirmPassword').attr("type", "password");
+                                        $('.togglePassword').text("visibility_off")
+                                        checked = false
+                                    }, 2000);
+                                } else {
+                                    $('#RegisterViewModel_Password').attr("type", "password");
+                                    $('#RegisterViewModel_ConfirmPassword').attr("type", "password");
+                                    $('.togglePassword').text("visibility_off")
+                                    checked = false
+                                }
+
+                            });
+
+                           
+                        });
+                        
+                    </script>
+
+                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
                 }
             </form>
         </div>

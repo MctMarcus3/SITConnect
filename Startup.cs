@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SITConnect.Model;
+using SITConnect.Services;
+using SITConnect.Settings;
 
 namespace SITConnect
 {
@@ -26,32 +28,43 @@ namespace SITConnect
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddSession(options => { 
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
+            });
             services.AddDbContext<SITConnectDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SITConnectDB"));
             });
+            services.AddDataProtection();
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
                     options.Password.RequiredLength = 12;
                     options.Password.RequireLowercase = true;
                     options.Password.RequireUppercase = true;
                     options.Password.RequireNonAlphanumeric = true;
-
                     options.Lockout.MaxFailedAccessAttempts = 3;
                     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-
                     options.User.RequireUniqueEmail = true;
                 }
                 )
-                .AddEntityFrameworkStores<SITConnectDbContext>();
+                .AddEntityFrameworkStores<SITConnectDbContext>()
+                .AddDefaultTokenProviders();
             services.AddDataProtection();
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/Account/Login";
+                options.Cookie.Name = ".AspNetCore.Identity.Application";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                options.SlidingExpiration = true;
+                options.LoginPath = "/Account";
                 options.AccessDeniedPath = "/Account/AccessDenied";
             });
+            services.Configure<SmtpSetting>(Configuration.GetSection("SMTP"));
+            services.AddSingleton<IEmailService, EmailService>();
 
+            services.AddHttpClient<Captcha>(x =>
+            {
+                x.BaseAddress = new Uri("https://www.google.com/recaptcha/api/siteverify");
+            });
             services.AddRazorPages();
         }
 
@@ -76,7 +89,9 @@ namespace SITConnect
             
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
+            app.UseStatusCodePagesWithRedirects("/StatusCode/404");
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
